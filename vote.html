@@ -7,10 +7,16 @@
 <body>
 
 <style>
+    .progress-bar-container {
+        position: relative;
+    }
+
     .progress-bar {
         height: 2px;
         background-color: red;
         width: 0%;
+        position: absolute;
+        bottom: 0;
     }
 </style>
 
@@ -25,25 +31,37 @@
             <label>
                 <input type="radio" name="teniszezo" value="djokovic" required> Djokovic Novak
             </label>
-            <div class="progress-bar" id="djokovic_progress"></div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="djokovic_progress"></div>
+                <span class="percentage" id="djokovic_percentage">0%</span>
+            </div>
             <br>
             <label>
                 <input type="radio" name="teniszezo" value="alcaraz" required> Alcaraz Carlos
             </label>
-            <div class="progress-bar" id="alcaraz_progress"></div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="alcaraz_progress"></div>
+                <span class="percentage" id="alcaraz_percentage">0%</span>
+            </div>
             <br>
             <label>
                 <input type="radio" name="teniszezo" value="medvedev" required> Medvedev Daniil
             </label>
-            <div class="progress-bar" id="medvedev_progress"></div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="medvedev_progress"></div>
+                <span class="percentage" id="medvedev_percentage">0%</span>
+            </div>
             <br>
             <label>
                 <input type="radio" name="teniszezo" value="sinner" required> Sinner Jannik
             </label>
-            <div class="progress-bar" id="sinner_progress"></div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="sinner_progress"></div>
+                <span class="percentage" id="sinner_percentage">0%</span>
+            </div>
             <br>
 
-            <button class="border bg-red-500 p-2" type="button" onclick="feldolgozas()" id="szavazasGomb" disabled>Szavazás</button>
+            <button class="border bg-red-500 p-2 my-2" type="button" onclick="feldolgozas()" id="szavazasGomb" disabled>Szavazás</button>
         </form>
     </div>
     <p>Összes szavazat: <span id="osszesSzavazat">0</span></p>
@@ -62,6 +80,7 @@
     var medvedevSzavazatokElem = document.getElementById('medvedevSzavazatok');
     var sinnerSzavazatokElem = document.getElementById('sinnerSzavazatok');
     var progressBars = document.querySelectorAll('.progress-bar');
+    var percentageElements = document.querySelectorAll('.percentage');
 
     radioButtons.forEach(function(radioButton) {
         radioButton.addEventListener('change', function() {
@@ -105,7 +124,7 @@
     }
 
     function updateProgressBars() {
-        progressBars.forEach(function(bar) {
+        progressBars.forEach(function(bar, index) {
             var votes = 0;
             switch (bar.id) {
                 case 'djokovic_progress':
@@ -123,6 +142,7 @@
             }
             var percentage = (votes / all_votes) * 100;
             bar.style.width = percentage + '%';
+            percentageElements[index].innerText = percentage.toFixed(2) + '%';
         });
     }
 </script>
