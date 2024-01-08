@@ -34,12 +34,22 @@
             <button class="border bg-red-500 p-2" type="button" onclick="feldolgozas()" id="szavazasGomb" disabled>Szavazás</button>
         </form>
     </div>
+    <p>Összes szavazat: <span id="osszesSzavazat">0</span></p>
+    <p>Djokovic szavazatok: <span id="djokovicSzavazatok">0</span></p>
+    <p>Alcaraz szavazatok: <span id="alcarazSzavazatok">0</span></p>
+    <p>Medvedev szavazatok: <span id="medvedevSzavazatok">0</span></p>
+    <p>Sinner szavazatok: <span id="sinnerSzavazatok">0</span></p>
 </div>
 
 <script>
     // A rádiógombok eseménykezelője
     var radioButtons = document.querySelectorAll('input[name="teniszezo"]');
     var szavazasGomb = document.getElementById('szavazasGomb');
+    var osszesSzavazatElem = document.getElementById('osszesSzavazat');
+    var djokovicSzavazatokElem = document.getElementById('djokovicSzavazatok');
+    var alcarazSzavazatokElem = document.getElementById('alcarazSzavazatok');
+    var medvedevSzavazatokElem = document.getElementById('medvedevSzavazatok');
+    var sinnerSzavazatokElem = document.getElementById('sinnerSzavazatok');
 
     radioButtons.forEach(function(radioButton) {
         radioButton.addEventListener('change', function() {
@@ -47,10 +57,42 @@
         });
     });
 
+    var all_votes = 0;
+    var djokovic = 0;
+    var alcaraz = 0;
+    var medvedev = 0;
+    var sinner = 0;
+
     function feldolgozas() {
+        all_votes++;
+        osszesSzavazatElem.innerText = all_votes;
+
+        var selectedRadio = document.querySelector('input[name="teniszezo"]:checked');
+        if (selectedRadio) {
+            var selectedValue = selectedRadio.value;
+            switch (selectedValue) {
+                case 'djokovic':
+                    djokovic++;
+                    djokovicSzavazatokElem.innerText = djokovic;
+                    break;
+                case 'alcaraz':
+                    alcaraz++;
+                    alcarazSzavazatokElem.innerText = alcaraz;
+                    break;
+                case 'medvedev':
+                    medvedev++;
+                    medvedevSzavazatokElem.innerText = medvedev;
+                    break;
+                case 'sinner':
+                    sinner++;
+                    sinnerSzavazatokElem.innerText = sinner;
+                    break;
+            }
+        }
+
+        // Ebben a pontban folytathatod a szavazás feldolgozását
     }
 </script>
 
 </body>
 </html>
-
