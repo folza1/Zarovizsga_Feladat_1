@@ -6,6 +6,14 @@
 </head>
 <body>
 
+<style>
+    .progress-bar {
+        height: 2px;
+        background-color: red;
+        width: 0%;
+    }
+</style>
+
 <div class="border m-4 p-4 w-1/2 mx-auto rounded">
     <p class="text-center font-bold text-3xl">Szavazzon!</p>
     <p class="text-center font-bold text-xl">Ki fogja nyerni a következő tenisztornát?</p>
@@ -17,18 +25,22 @@
             <label>
                 <input type="radio" name="teniszezo" value="djokovic" required> Djokovic Novak
             </label>
+            <div class="progress-bar" id="djokovic_progress"></div>
             <br>
             <label>
                 <input type="radio" name="teniszezo" value="alcaraz" required> Alcaraz Carlos
             </label>
+            <div class="progress-bar" id="alcaraz_progress"></div>
             <br>
             <label>
                 <input type="radio" name="teniszezo" value="medvedev" required> Medvedev Daniil
             </label>
+            <div class="progress-bar" id="medvedev_progress"></div>
             <br>
             <label>
                 <input type="radio" name="teniszezo" value="sinner" required> Sinner Jannik
             </label>
+            <div class="progress-bar" id="sinner_progress"></div>
             <br>
 
             <button class="border bg-red-500 p-2" type="button" onclick="feldolgozas()" id="szavazasGomb" disabled>Szavazás</button>
@@ -42,7 +54,6 @@
 </div>
 
 <script>
-    // A rádiógombok eseménykezelője
     var radioButtons = document.querySelectorAll('input[name="teniszezo"]');
     var szavazasGomb = document.getElementById('szavazasGomb');
     var osszesSzavazatElem = document.getElementById('osszesSzavazat');
@@ -50,6 +61,11 @@
     var alcarazSzavazatokElem = document.getElementById('alcarazSzavazatok');
     var medvedevSzavazatokElem = document.getElementById('medvedevSzavazatok');
     var sinnerSzavazatokElem = document.getElementById('sinnerSzavazatok');
+    var djokovicProgressBarElem = document.getElementById('djokovic_progress');
+    var alcarazProgressBarElem = document.getElementById('alcaraz_progress');
+    var medvedevProgressBarElem = document.getElementById('medvedev_progress');
+    var sinnerProgressBarElem = document.getElementById('sinner_progress');
+    var progressBars = document.querySelectorAll('.progress-bar');
 
     radioButtons.forEach(function(radioButton) {
         radioButton.addEventListener('change', function() {
@@ -88,9 +104,30 @@
                     sinnerSzavazatokElem.innerText = sinner;
                     break;
             }
+            updateProgressBars();
         }
+    }
 
-        // Ebben a pontban folytathatod a szavazás feldolgozását
+    function updateProgressBars() {
+        progressBars.forEach(function(bar) {
+            var votes = 0;
+            switch (bar.id) {
+                case 'djokovic_progress':
+                    votes = djokovic;
+                    break;
+                case 'alcaraz_progress':
+                    votes = alcaraz;
+                    break;
+                case 'medvedev_progress':
+                    votes = medvedev;
+                    break;
+                case 'sinner_progress':
+                    votes = sinner;
+                    break;
+            }
+            var percentage = (votes / all_votes) * 100;
+            bar.style.width = percentage + '%';
+        });
     }
 </script>
 
