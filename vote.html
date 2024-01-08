@@ -65,20 +65,17 @@
         </form>
     </div>
     <p>Összes szavazat: <span id="osszesSzavazat">0</span></p>
-    <p>Djokovic szavazatok: <span id="djokovicSzavazatok">0</span></p>
-    <p>Alcaraz szavazatok: <span id="alcarazSzavazatok">0</span></p>
-    <p>Medvedev szavazatok: <span id="medvedevSzavazatok">0</span></p>
-    <p>Sinner szavazatok: <span id="sinnerSzavazatok">0</span></p>
+    <p>Djokovic szavazatok: <span class="szavazatok" id="djokovicSzavazatok">0</span></p>
+    <p>Alcaraz szavazatok: <span class="szavazatok" id="alcarazSzavazatok">0</span></p>
+    <p>Medvedev szavazatok: <span class="szavazatok" id="medvedevSzavazatok">0</span></p>
+    <p>Sinner szavazatok: <span class="szavazatok" id="sinnerSzavazatok">0</span></p>
 </div>
 
 <script>
     var radioButtons = document.querySelectorAll('input[name="teniszezo"]');
     var szavazasGomb = document.getElementById('szavazasGomb');
     var osszesSzavazatElem = document.getElementById('osszesSzavazat');
-    var djokovicSzavazatokElem = document.getElementById('djokovicSzavazatok');
-    var alcarazSzavazatokElem = document.getElementById('alcarazSzavazatok');
-    var medvedevSzavazatokElem = document.getElementById('medvedevSzavazatok');
-    var sinnerSzavazatokElem = document.getElementById('sinnerSzavazatok');
+    var szavazatokElemek = document.querySelectorAll('.szavazatok'); // Hozzáadott sor
     var progressBars = document.querySelectorAll('.progress-bar');
     var percentageElements = document.querySelectorAll('.percentage');
 
@@ -94,6 +91,21 @@
     var medvedev = 0;
     var sinner = 0;
 
+    // Betöltjük a szavazatokat a localStorage-ból
+    function loadVotesFromLocalStorage() {
+        all_votes = parseInt(localStorage.getItem('all_votes')) || 0;
+        djokovic = parseInt(localStorage.getItem('djokovic_votes')) || 0;
+        alcaraz = parseInt(localStorage.getItem('alcaraz_votes')) || 0;
+        medvedev = parseInt(localStorage.getItem('medvedev_votes')) || 0;
+        sinner = parseInt(localStorage.getItem('sinner_votes')) || 0;
+
+        updateProgressBars();
+        osszesSzavazatElem.innerText = all_votes;  // Hozzáadott sor
+    }
+
+    // Az oldal betöltésekor futtatjuk a függvényt
+    loadVotesFromLocalStorage();
+
     function feldolgozas() {
         all_votes++;
         osszesSzavazatElem.innerText = all_votes;
@@ -104,21 +116,19 @@
             switch (selectedValue) {
                 case 'djokovic':
                     djokovic++;
-                    djokovicSzavazatokElem.innerText = djokovic;
                     break;
                 case 'alcaraz':
                     alcaraz++;
-                    alcarazSzavazatokElem.innerText = alcaraz;
                     break;
                 case 'medvedev':
                     medvedev++;
-                    medvedevSzavazatokElem.innerText = medvedev;
                     break;
                 case 'sinner':
                     sinner++;
-                    sinnerSzavazatokElem.innerText = sinner;
                     break;
             }
+            // Elmentjük a szavazatokat a localStorage-ba
+            saveVotesToLocalStorage();
             updateProgressBars();
         }
     }
@@ -142,8 +152,17 @@
             }
             var percentage = (votes / all_votes) * 100;
             bar.style.width = percentage + '%';
+            szavazatokElemek[index].innerText = votes;
             percentageElements[index].innerText = percentage.toFixed(2) + '%';
         });
+    }
+
+    function saveVotesToLocalStorage() {
+        localStorage.setItem('all_votes', all_votes);
+        localStorage.setItem('djokovic_votes', djokovic);
+        localStorage.setItem('alcaraz_votes', alcaraz);
+        localStorage.setItem('medvedev_votes', medvedev);
+        localStorage.setItem('sinner_votes', sinner);
     }
 </script>
 
