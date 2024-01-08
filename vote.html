@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Page Title</title>
+    <title>Szavazás</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -130,6 +130,7 @@
             // Elmentjük a szavazatokat a localStorage-ba
             saveVotesToLocalStorage();
             updateProgressBars();
+            alert('Sikeres szavazás!');
         }
     }
 
@@ -150,12 +151,16 @@
                     votes = sinner;
                     break;
             }
-            var percentage = (votes / all_votes) * 100;
+
+            // Ellenőrizzük, hogy az all_votes értéke nagyobb-e nullánál
+            var percentage = all_votes > 0 ? (votes / all_votes) * 100 : 0;
+
             bar.style.width = percentage + '%';
             szavazatokElemek[index].innerText = votes;
             percentageElements[index].innerText = percentage.toFixed(2) + '%';
         });
     }
+
 
     function saveVotesToLocalStorage() {
         localStorage.setItem('all_votes', all_votes);
