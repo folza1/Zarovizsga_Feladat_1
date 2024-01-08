@@ -36,5 +36,21 @@
     </div>
 </div>
 
+<script>
+    // A rádiógombok eseménykezelője
+    var radioButtons = document.querySelectorAll('input[name="teniszezo"]');
+    var szavazasGomb = document.getElementById('szavazasGomb');
+
+    radioButtons.forEach(function(radioButton) {
+        radioButton.addEventListener('change', function() {
+            szavazasGomb.disabled = false;
+        });
+    });
+
+    function feldolgozas() {
+    }
+</script>
+
 </body>
 </html>
+
