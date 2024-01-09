@@ -27,41 +27,51 @@
     <div>
         <form id="szavazasForm" action="/" method="post">
 
-            <p class="font-bold text-xl">Válassz teniszezőt:</p>
-            <label>
-                <input type="radio" name="teniszezo" value="djokovic" required> Djokovic Novak
-            </label>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="djokovic_progress"></div>
-                <span class="percentage" id="djokovic_percentage">0%</span>
+            <p class="font-bold text-xl my-2">Válassz teniszezőt:</p>
+            <div class="border p-2 rounded">
+                <label>
+                    <input type="radio" name="teniszezo" value="djokovic" required> Djokovic Novak
+                </label>
+                <div class="progress-bar-container p-1 pl-0 bg-green-50 rounded mt-3">
+                    <div class="progress-bar" id="djokovic_progress"></div>
+                    <span class="percentage" id="djokovic_percentage">0%</span>
+                </div>
             </div>
             <br>
-            <label>
-                <input type="radio" name="teniszezo" value="alcaraz" required> Alcaraz Carlos
-            </label>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="alcaraz_progress"></div>
-                <span class="percentage" id="alcaraz_percentage">0%</span>
+            <div class="border p-2 rounded">
+                <label>
+                    <input type="radio" name="teniszezo" value="alcaraz" required> Alcaraz Carlos
+                </label>
+                <div class="progress-bar-container p-1 pl-0 bg-green-50 rounded mt-3">
+                    <div class="progress-bar" id="alcaraz_progress"></div>
+                    <span class="percentage" id="alcaraz_percentage">0%</span>
+                </div>
             </div>
             <br>
-            <label>
-                <input type="radio" name="teniszezo" value="medvedev" required> Medvedev Daniil
-            </label>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="medvedev_progress"></div>
-                <span class="percentage" id="medvedev_percentage">0%</span>
+            <div class="border p-2 rounded">
+                <label>
+                    <input type="radio" name="teniszezo" value="medvedev" required> Medvedev Daniil
+                </label>
+                <div class="progress-bar-container p-1 pl-0 bg-green-50 rounded mt-3">
+                    <div class="progress-bar" id="medvedev_progress"></div>
+                    <span class="percentage" id="medvedev_percentage">0%</span>
+                </div>
             </div>
             <br>
-            <label>
-                <input type="radio" name="teniszezo" value="sinner" required> Sinner Jannik
-            </label>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="sinner_progress"></div>
-                <span class="percentage" id="sinner_percentage">0%</span>
+            <div class="border p-2 rounded">
+                <label>
+                    <input type="radio" name="teniszezo" value="sinner" required> Sinner Jannik
+                </label>
+                <div class="progress-bar-container p-1 pl-0 bg-green-50 rounded mt-3">
+                    <div class="progress-bar" id="sinner_progress"></div>
+                    <span class="percentage" id="sinner_percentage">0%</span>
+                </div>
             </div>
             <br>
 
-            <button class="border bg-red-500 p-2 my-2" type="button" onclick="handleSzavazasClick()" id="szavazasGomb" disabled>Szavazás</button>
+            <button class="border border-4 border-black rounded text-white font-bold bg-red-500 hover:bg-red-300 p-2 my-2" type="button" onclick="handleSzavazasClick()" id="szavazasGomb"
+                    disabled>Szavazás
+            </button>
         </form>
     </div>
     <p>Összes szavazat: <span id="osszesSzavazat">0</span></p>
@@ -79,8 +89,8 @@
     var progressBars = document.querySelectorAll('.progress-bar');
     var percentageElements = document.querySelectorAll('.percentage');
 
-    radioButtons.forEach(function(radioButton) {
-        radioButton.addEventListener('change', function() {
+    radioButtons.forEach(function (radioButton) {
+        radioButton.addEventListener('change', function () {
             szavazasGomb.disabled = false;
         });
     });
@@ -119,13 +129,13 @@
             localStorage.setItem('lastVoteTimestamp', lastVoteTimestamp);
 
             // Rádiógombok visszaállítása
-            radioButtons.forEach(function(radioButton) {
+            radioButtons.forEach(function (radioButton) {
                 radioButton.checked = false;
             });
             szavazasGomb.disabled = true;
         } else {
             alert('1 órában 1-szer szavazhatsz!');
-            radioButtons.forEach(function(radioButton) {
+            radioButtons.forEach(function (radioButton) {
                 radioButton.checked = false;
             });
             szavazasGomb.disabled = true;
@@ -161,7 +171,7 @@
     }
 
     function updateProgressBars() {
-        progressBars.forEach(function(bar, index) {
+        progressBars.forEach(function (bar, index) {
             var votes = 0;
             switch (bar.id) {
                 case 'djokovic_progress':
