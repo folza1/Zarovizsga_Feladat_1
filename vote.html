@@ -61,7 +61,7 @@
             </div>
             <br>
 
-            <button class="border bg-red-500 p-2 my-2" type="button" onclick="feldolgozas()" id="szavazasGomb" disabled>Szavazás</button>
+            <button class="border bg-red-500 p-2 my-2" type="button" onclick="handleSzavazasClick()" id="szavazasGomb" disabled>Szavazás</button>
         </form>
     </div>
     <p>Összes szavazat: <span id="osszesSzavazat">0</span></p>
@@ -75,7 +75,7 @@
     var radioButtons = document.querySelectorAll('input[name="teniszezo"]');
     var szavazasGomb = document.getElementById('szavazasGomb');
     var osszesSzavazatElem = document.getElementById('osszesSzavazat');
-    var szavazatokElemek = document.querySelectorAll('.szavazatok'); // Hozzáadott sor
+    var szavazatokElemek = document.querySelectorAll('.szavazatok');
     var progressBars = document.querySelectorAll('.progress-bar');
     var percentageElements = document.querySelectorAll('.percentage');
 
@@ -91,6 +91,9 @@
     var medvedev = 0;
     var sinner = 0;
 
+    // Az utolsó szavazás időbélyegét tároló változó
+    var lastVoteTimestamp = parseInt(localStorage.getItem('lastVoteTimestamp')) || 0;
+
     // Betöltjük a szavazatokat a localStorage-ból
     function loadVotesFromLocalStorage() {
         all_votes = parseInt(localStorage.getItem('all_votes')) || 0;
@@ -100,11 +103,32 @@
         sinner = parseInt(localStorage.getItem('sinner_votes')) || 0;
 
         updateProgressBars();
-        osszesSzavazatElem.innerText = all_votes;  // Hozzáadott sor
+        osszesSzavazatElem.innerText = all_votes;
     }
 
     // Az oldal betöltésekor futtatjuk a függvényt
     loadVotesFromLocalStorage();
+
+    function handleSzavazasClick() {
+        // Ellenőrizzük, hogy a 1 perc eltelt-e az utolsó szavazás óta
+        var currentTimestamp = new Date().getTime();
+        if (currentTimestamp - lastVoteTimestamp >= 60000 * 60) {  // 60000 milliszekundum = 1 perc
+            feldolgozas();
+            // Frissítjük az utolsó szavazás időbélyegét
+            lastVoteTimestamp = currentTimestamp;
+            localStorage.setItem('lastVoteTimestamp', lastVoteTimestamp);
+
+            // Rádiógombok visszaállítása
+            radioButtons.forEach(function(radioButton) {
+                radioButton.checked = false;
+            });
+        } else {
+            alert('1 órában 1-szer szavazhatsz!');
+            radioButtons.forEach(function(radioButton) {
+                radioButton.checked = false;
+            });
+        }
+    }
 
     function feldolgozas() {
         all_votes++;
@@ -152,7 +176,6 @@
                     break;
             }
 
-            // Ellenőrizzük, hogy az all_votes értéke nagyobb-e nullánál
             var percentage = all_votes > 0 ? (votes / all_votes) * 100 : 0;
 
             bar.style.width = percentage + '%';
@@ -161,7 +184,6 @@
         });
     }
 
-
     function saveVotesToLocalStorage() {
         localStorage.setItem('all_votes', all_votes);
         localStorage.setItem('djokovic_votes', djokovic);
@@ -169,6 +191,7 @@
         localStorage.setItem('medvedev_votes', medvedev);
         localStorage.setItem('sinner_votes', sinner);
     }
+
 </script>
 
 </body>
