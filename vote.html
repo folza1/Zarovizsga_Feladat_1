@@ -69,16 +69,19 @@
             </div>
             <br>
 
-            <button class="border border-4 border-black rounded text-white font-bold bg-red-500 hover:bg-red-300 p-2 my-2" type="button" onclick="handleSzavazasClick()" id="szavazasGomb"
+            <button class="border border-4 border-black rounded text-white font-bold bg-red-500 hover:bg-red-300 p-2 my-2"
+                    type="button" onclick="handleSzavazasClick()" id="szavazasGomb"
                     disabled>Szavazás
             </button>
         </form>
     </div>
-    <p>Összes szavazat: <span id="osszesSzavazat">0</span></p>
-    <p>Djokovic szavazatok: <span class="szavazatok" id="djokovicSzavazatok">0</span></p>
-    <p>Alcaraz szavazatok: <span class="szavazatok" id="alcarazSzavazatok">0</span></p>
-    <p>Medvedev szavazatok: <span class="szavazatok" id="medvedevSzavazatok">0</span></p>
-    <p>Sinner szavazatok: <span class="szavazatok" id="sinnerSzavazatok">0</span></p>
+    <div class="border p-3 w-1/2 mx-auto bg-blue-100 rounded">
+        <p class="font-bold text-lg underline text-center">Összes szavazat: <span id="osszesSzavazat">0</span></p>
+        <p class="text-center">Djokovic szavazatok: <span class="szavazatok" id="djokovicSzavazatok">0</span></p>
+        <p class="text-center">Alcaraz szavazatok: <span class="szavazatok" id="alcarazSzavazatok">0</span></p>
+        <p class="text-center">Medvedev szavazatok: <span class="szavazatok" id="medvedevSzavazatok">0</span></p>
+        <p class="text-center">Sinner szavazatok: <span class="szavazatok" id="sinnerSzavazatok">0</span></p>
+    </div>
 </div>
 
 <script>
@@ -191,7 +194,7 @@
             var percentage = all_votes > 0 ? (votes / all_votes) * 100 : 0;
 
             bar.style.width = percentage + '%';
-            szavazatokElemek[index].innerText = votes;
+            szavazatokElemek[index].innerText = votes + " db";
             percentageElements[index].innerText = percentage.toFixed(2) + '%';
         });
     }
