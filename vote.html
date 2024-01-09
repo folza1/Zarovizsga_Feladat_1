@@ -122,11 +122,13 @@
             radioButtons.forEach(function(radioButton) {
                 radioButton.checked = false;
             });
+            szavazasGomb.disabled = true;
         } else {
             alert('1 órában 1-szer szavazhatsz!');
             radioButtons.forEach(function(radioButton) {
                 radioButton.checked = false;
             });
+            szavazasGomb.disabled = true;
         }
     }
 
