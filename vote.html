@@ -20,7 +20,7 @@
     }
 </style>
 
-<div class="border m-4 p-4 w-1/2 mx-auto rounded">
+<div class="border m-4 p-4 w-1/2 mx-auto rounded bg-blue-50">
     <p class="text-center font-bold text-3xl">Szavazzon!</p>
     <p class="text-center font-bold text-xl">Ki fogja nyerni a következő tenisztornát?</p>
 
@@ -28,7 +28,7 @@
         <form id="szavazasForm" action="/" method="post">
 
             <p class="font-bold text-xl my-2">Válassz teniszezőt:</p>
-            <div class="border p-2 rounded">
+            <div class="border p-2 rounded bg-white">
                 <label>
                     <input type="radio" name="teniszezo" value="djokovic" required> Djokovic Novak
                 </label>
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <br>
-            <div class="border p-2 rounded">
+            <div class="border p-2 rounded bg-white"">
                 <label>
                     <input type="radio" name="teniszezo" value="alcaraz" required> Alcaraz Carlos
                 </label>
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <br>
-            <div class="border p-2 rounded">
+            <div class="border p-2 rounded bg-white"">
                 <label>
                     <input type="radio" name="teniszezo" value="medvedev" required> Medvedev Daniil
                 </label>
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <br>
-            <div class="border p-2 rounded">
+            <div class="border p-2 rounded bg-white"">
                 <label>
                     <input type="radio" name="teniszezo" value="sinner" required> Sinner Jannik
                 </label>
@@ -85,6 +85,8 @@
 </div>
 
 <script>
+    document.cookie = "username=John Doe";
+
     var radioButtons = document.querySelectorAll('input[name="teniszezo"]');
     var szavazasGomb = document.getElementById('szavazasGomb');
     var osszesSzavazatElem = document.getElementById('osszesSzavazat');
